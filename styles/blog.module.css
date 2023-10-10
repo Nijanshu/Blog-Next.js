@@ -1,0 +1,18 @@
+.head{
+    text-align: center;
+    color: blueviolet;
+}
+
+
+.blog{
+    width: 60%;
+    margin: 40px auto;
+}
+
+.title{
+    margin: 5px auto;
+}
+
+.desc{
+    margin: 5px auto;
+}

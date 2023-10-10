@@ -3,10 +3,25 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 6rem;
+  padding: 3rem;
   min-height: 100vh;
 }
 
+
+.hd{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: bold;
+}
+.nav1 ul{
+  display: flex;
+  justify-content: space-evenly;
+
+}
+
+.nav1 li{
+  list-style: none !important;
+  font-weight: bold;
+}
 .description {
   display: inherit;
   justify-content: inherit;

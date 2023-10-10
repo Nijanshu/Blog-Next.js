@@ -14,6 +14,8 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      
+     
       <main className={`${styles.main} ${inter.className}`}>
         <div className={styles.description}>
           <p>
@@ -35,6 +37,7 @@ export default function Home() {
                 height={24}
                 priority
               />
+              
             </a>
           </div>
         </div>
@@ -49,7 +52,7 @@ export default function Home() {
             priority
           />
         </div>
-
+<h2 className={styles.hd}>Enjoy the Next Gen Revolution</h2>
         <div className={styles.grid}>
           <a
             href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
@@ -57,9 +60,10 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <h2>
+
+            <h3>
               Docs <span>-&gt;</span>
-            </h2>
+            </h3>
             <p>
               Find in-depth information about Next.js features and&nbsp;API.
             </p>
@@ -71,9 +75,9 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <h2>
+            <h3>
               Learn <span>-&gt;</span>
-            </h2>
+            </h3>
             <p>
               Learn about Next.js in an interactive course with&nbsp;quizzes!
             </p>
@@ -85,9 +89,9 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <h2>
+            <h3>
               Templates <span>-&gt;</span>
-            </h2>
+            </h3>
             <p>
               Discover and deploy boilerplate example Next.js&nbsp;projects.
             </p>
@@ -99,9 +103,9 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <h2>
+            <h3>
               Deploy <span>-&gt;</span>
-            </h2>
+            </h3>
             <p>
               Instantly deploy your Next.js site to a shareable URL
               with&nbsp;Vercel.
