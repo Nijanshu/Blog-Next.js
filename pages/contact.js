@@ -9,9 +9,8 @@ const Contact = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(phone, name, email, desc)
         const data = { phone, name, email, desc };
-
+        console.log(data)
         fetch('http://localhost:3000/api/postcontact', {
             method: 'POST', // or 'PUT'
             headers: {
@@ -19,9 +18,9 @@ const Contact = () => {
             },
             body: JSON.stringify(data),
         })
-            .then(response => response.text())
-            .then(data => {
-                console.log('Success:', data);
+        .then(response => response.text())
+        .then(data => {
+            console.log('Success:', data);
                 alert("Thanks for contacting us");
                 setphone('')
                 setname('')
@@ -58,7 +57,6 @@ const Contact = () => {
             <div className={styles.mb3}>
                 <label htmlFor="email" className={styles.formlabel}>Email address</label>
                 <input type="email" value={email} onChange={handleChange} className="form-control" name='email' id="email" aria-describedby="emailHelp" />
-                <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
             </div>
             <div className={styles.mb3}>
                 <label htmlFor="phone" className={styles.formlabel}>Phone</label>
