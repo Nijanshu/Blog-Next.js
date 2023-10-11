@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styles from '@/styles/blog.module.css'
+import * as fs from 'fs';  //to read individual files
+
 
 
 const slug = (props) => {
@@ -14,22 +16,48 @@ const slug = (props) => {
     <h1 className={styles.title}>Title: {blog&& blog.title}</h1>
     <hr />
     <div className={styles.desc}>
-        {blog&& blog.description}
+    {blog && <div dangerouslySetInnerHTML={createMarkup(blog.description)}></div>}
       </div>
     </div>;
 };
 
-export async function getServerSideProps(context) {
-  // console.log(context.query)
-  // const router = useRouter();
-  const { slug } = context.query;
-
-  let data = await fetch(`http://localhost:3000/api/getblog?slug=${slug}`)
-  let myBlog = await data.json()
+export async function getStaticPaths() {
   return {
-      props: { myBlog }, // will be passed to the page component as props
+      paths: [
+          { params: { slug: 'blog1' } },
+          { params: { slug: 'blog2' } },
+          { params: { slug: 'blog3' } },
+          { params: { slug: 'blog4' } },
+      ],
+      fallback: true // false or 'blocking'
+  };
+}
+
+export async function getStaticProps(context) {
+  const { slug } = context.params;
+  let myBlog = await fs.promises.readFile(`blogdata/${slug}.json`, 'utf-8')
+  return {
+      props: { myBlog: JSON.parse(myBlog) }, // will be passed to the page component as props
   }
 }
+
+
+function createMarkup(c) {
+  return { __html: c };
+}
+
+
+// export async function getServerSideProps(context) {        //Server will fetch data from api not browser
+//   // console.log(context.query)
+//   // const router = useRouter();
+//   const { slug } = context.query;
+
+//   let data = await fetch(`http://localhost:3000/api/getblog?slug=${slug}`)
+//   let myBlog = await data.json()
+//   return {
+//       props: { myBlog }, // will be passed to the page component as props
+//   }
+// }
 
 
 export default slug;
