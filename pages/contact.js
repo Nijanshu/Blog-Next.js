@@ -10,8 +10,8 @@ const Contact = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         const data = { phone, name, email, desc };
-        console.log(data)
-        fetch('https://newwwbackkk.onrender.com/api/notes/addnote', {
+
+        fetch('http://localhost:3000/api/postcontact', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
