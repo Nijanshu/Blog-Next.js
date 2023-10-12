@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styles from '@/styles/blog.module.css'
-
+import Head from 'next/head';
 
 
 const slug = (props) => {
@@ -12,6 +12,12 @@ const slug = (props) => {
   }
 
   return <div className={styles.blog}>
+    <Head>
+        <title>{blog.title}</title>
+        <meta name="description" content="inBlog Blogs" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/inBlog.png" />
+      </Head>
     <h1 className={styles.title}> {blog&& blog.title}</h1>
     <hr />
     <div className={styles.desc}>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styles from '@/styles/blog.module.css'
 import Link from 'next/link'
+import Head from 'next/head'
 
 
 const Blog = (props) => {
@@ -8,6 +9,13 @@ const Blog = (props) => {
   const [blogs, setblogs] = useState(props.allBlogs)
 
   return (
+    <>
+    <Head>
+        <title>Blogs</title>
+        <meta name="description" content="inBlog Blogs" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/inBlog.png" />
+      </Head>
     <div>
       <h1 className={styles.head}>Latest Blogs: {blogs.length}</h1>
 
@@ -26,7 +34,7 @@ const Blog = (props) => {
 })}
       
     </div>
-   
+    </>
   )
 }
 

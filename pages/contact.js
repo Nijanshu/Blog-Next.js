@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from '../styles/contact.module.css'
+import Head from 'next/head';
 
 const Contact = () => {
     const [name, setname] = useState('')
@@ -48,6 +49,12 @@ const Contact = () => {
     }
 
     return <div className={styles.container}>
+         <Head>
+        <title>Contact Us</title>
+        <meta name="description" content="Contact Us" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/inBlog.png" />
+      </Head>
         <h1>Contact Us</h1>
         <form onSubmit={handleSubmit}>
             <div className={styles.mb3}>
