@@ -31,3 +31,17 @@
     padding: 5px;
     background-color: rgb(7, 44, 155);
 }
+
+
+@media (max-width: 768px) {
+    .container {
+    margin: 20px 10px;
+    max-width: 100%;
+    }
+    .formcontrol {
+        width: 90vw;
+    }
+    .textarea {
+        width: 90vw;
+    }
+}
