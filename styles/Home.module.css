@@ -95,7 +95,6 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  padding: 4rem 0;
 }
 
 .center::before {
@@ -123,7 +122,9 @@
 }
 
 .logo {
-  position: relative;
+  width: 250px;
+  height: 250px;
+  border-radius: 120px;
 }
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
@@ -232,9 +233,7 @@
     filter: invert(1);
   }
 
-  .logo {
-    filter: invert(1) drop-shadow(0 0 0.3rem #ffffff70);
-  }
+  
 }
 
 @keyframes rotate {

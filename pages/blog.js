@@ -36,7 +36,7 @@ const Blog = (props) => {
         <h2 className={styles.title}>{blog.title}</h2>
       </Link>
       <span>Date: {formattedDate}</span>
-      <div className={styles.desc}>{blog.description.substr(0, 500)}...</div>
+      <div className={styles.desc}>{blog.description.substr(0, 500)}... <a className={styles.link} href={`/blogpost/${blog._id}`}>Read Full Article</a> </div>
     </div>
   );
 })}

@@ -23,6 +23,9 @@
     /* padding: 20px; */
 }
 
+.link{
+    color: rgb(58 239 239);
+}
 @media (max-width: 768px) {
     .blog {
     

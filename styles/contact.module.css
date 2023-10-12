@@ -3,10 +3,31 @@
     margin: 50px auto;
 }
 
+.head{
+    margin-bottom: 20px;
+}
+
 .mb3 {
     margin-bottom: 21px;
 }
 
 .formlabel {
-    margin: 0px 14px;
+    display: block;
+}
+
+.formcontrol {
+    width: 50vw;
+    height: 25px;
+}
+
+.textarea{
+    width: 50vw;
+    height: 100px;
+}
+
+.submit{
+    font-size: 15px;
+    cursor: pointer;
+    padding: 5px;
+    background-color: rgb(7, 44, 155);
 }

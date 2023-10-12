@@ -50,30 +50,30 @@ const Contact = () => {
 
     return <div className={styles.container}>
          <Head>
-        <title>Contact Us</title>
+        <title >Contact Us</title>
         <meta name="description" content="Contact Us" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/inBlog.png" />
       </Head>
-        <h1>Contact Us</h1>
+        <h1 className={styles.head}>Contact Us</h1>
         <form onSubmit={handleSubmit}>
             <div className={styles.mb3}>
                 <label htmlFor="name" className={styles.formlabel}>Enter your name</label>
-                <input type="text" value={name} onChange={handleChange} className="form-control" id="name" name='name' aria-describedby="emailHelp" />
+                <input type="text" value={name} onChange={handleChange} className={styles.formcontrol} id="name" name='name' aria-describedby="emailHelp" />
             </div>
             <div className={styles.mb3}>
                 <label htmlFor="email" className={styles.formlabel}>Email address</label>
-                <input type="email" value={email} onChange={handleChange} className="form-control" name='email' id="email" aria-describedby="emailHelp" />
+                <input type="email" value={email} onChange={handleChange} className={styles.formcontrol} name='email' id="email" aria-describedby="emailHelp" />
             </div>
             <div className={styles.mb3}>
                 <label htmlFor="phone" className={styles.formlabel}>Phone</label>
-                <input type="phone" value={phone} onChange={handleChange} className="form-control" name='phone' id="phone" />
+                <input type="phone" value={phone} onChange={handleChange} className={styles.formcontrol} name='phone' id="phone" />
             </div>
             <div className={styles.mb3}>
-                <label htmlFor="desc">Comments: </label>
-                <textarea value={desc} onChange={handleChange} className="form-control" placeholder="Write your opinion" name='desc' id="desc" />
+                <label htmlFor="desc" className={styles.formlabel}>Comments: </label>
+                <textarea value={desc} onChange={handleChange} className={styles.textarea} placeholder="Write your opinion" name='desc' id="desc" />
             </div>
-            <button type="submit" className="btn btn-primary">Submit</button>
+            <button type="submit" className={styles.submit}>Submit</button>
         </form>
     </div>;
 };

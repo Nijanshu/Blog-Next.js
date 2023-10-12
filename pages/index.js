@@ -25,7 +25,7 @@ export default function Home() {
 
         <div className={styles.center}>
           <Image
-            // className={styles.logo}
+            className={styles.logo}
             src="/inBlog.png"
             alt="Next.js Logo"
             width={280}
