@@ -28,8 +28,8 @@ const slug = (props) => {
         <link rel="icon" href="/inBlog.png" />
       </Head>
     <h1 className={styles.title}> {blog&& blog.title}</h1>
-    <span className={styles.date}>Date: {formattedDate}</span>
     <hr />
+    <span className={styles.date}>Date: {formattedDate}</span>
     <div className={styles.desc}>
     {blog && <div dangerouslySetInnerHTML={createMarkup(blog.description)}></div>}
       </div>
