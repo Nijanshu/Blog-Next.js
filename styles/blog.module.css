@@ -6,9 +6,9 @@
 
 
 .blog{
-    min-width: 768px;
+    
     padding: 0px 20px;
-    width: 60%;
+    
     margin: 40px auto;
 }
 
@@ -17,6 +17,6 @@
 }
 
 .desc{
-    margin: 5px 20px;
+    margin: 5px 5px;
     /* padding: 20px; */
 }
