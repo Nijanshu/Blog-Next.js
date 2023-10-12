@@ -8,6 +8,7 @@ const Blog = (props) => {
 
   const [blogs, setblogs] = useState(props.allBlogs)
 
+  
   return (
     <>
     <Head>
@@ -19,19 +20,27 @@ const Blog = (props) => {
     <div>
       <h1 className={styles.head}>Latest Blogs: {blogs.length}</h1>
 
- {blogs.map((blog)=>{
- 
- return <div className={styles.blog} key={blog.title}>
-  
+      {blogs.map((blog) => {
+  const dat = new Date(blog.date);
+  const options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    
+  };
+  const formattedDate = dat.toLocaleDateString('en-US', options);
+
+  return (
+    <div className={styles.blog} key={blog.title}>
       <Link href={`/blogpost/${blog._id}`}>
         <h2 className={styles.title}>{blog.title}</h2>
-         
-        <div className={styles.desc}>
-            {blog.description.substr(0,500)}...
-        </div>
       </Link>
-</div>
+      <span>Date: {formattedDate}</span>
+      <div className={styles.desc}>{blog.description.substr(0, 500)}...</div>
+    </div>
+  );
 })}
+
       
     </div>
     </>

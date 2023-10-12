@@ -6,6 +6,15 @@ import Head from 'next/head';
 const slug = (props) => {
   const [blog, setblog] = useState(props.myBlog)
 
+  const dat = new Date(blog.date);
+  const options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    
+  };
+  const formattedDate = dat.toLocaleDateString('en-US', options);
+
  
   if (!slug) {
     return <div>No slug provided.</div>;
@@ -19,6 +28,7 @@ const slug = (props) => {
         <link rel="icon" href="/inBlog.png" />
       </Head>
     <h1 className={styles.title}> {blog&& blog.title}</h1>
+    <span className={styles.date}>Date: {formattedDate}</span>
     <hr />
     <div className={styles.desc}>
     {blog && <div dangerouslySetInnerHTML={createMarkup(blog.description)}></div>}
