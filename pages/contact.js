@@ -9,19 +9,18 @@ const Contact = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(phone, name, email, desc)
         const data = { phone, name, email, desc };
-
-        fetch('http://localhost:3000/api/postcontact', {
+        console.log(data)
+        fetch('https://newwwbackkk.onrender.com/api/notes/addnote', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
         })
-            .then(response => response.text())
-            .then(data => {
-                console.log('Success:', data);
+        .then(response => response.text())
+        .then(data => {
+            console.log('Success:', data);
                 alert("Thanks for contacting us");
                 setphone('')
                 setname('')
@@ -58,15 +57,14 @@ const Contact = () => {
             <div className={styles.mb3}>
                 <label htmlFor="email" className={styles.formlabel}>Email address</label>
                 <input type="email" value={email} onChange={handleChange} className="form-control" name='email' id="email" aria-describedby="emailHelp" />
-                <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
             </div>
             <div className={styles.mb3}>
                 <label htmlFor="phone" className={styles.formlabel}>Phone</label>
                 <input type="phone" value={phone} onChange={handleChange} className="form-control" name='phone' id="phone" />
             </div>
             <div className={styles.mb3}>
-                <label htmlFor="desc">Elaborate your concern</label>
-                <textarea value={desc} onChange={handleChange} className="form-control" placeholder="Write your concern here" name='desc' id="desc" />
+                <label htmlFor="desc">Comments: </label>
+                <textarea value={desc} onChange={handleChange} className="form-control" placeholder="Write your opinion" name='desc' id="desc" />
             </div>
             <button type="submit" className="btn btn-primary">Submit</button>
         </form>

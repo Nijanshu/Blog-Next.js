@@ -3,14 +3,17 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 3rem;
-  min-height: 100vh;
+  padding-bottom: 3rem;
+  min-height: 93vh;
 }
 
 
 .hd{
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-weight: bold;
+}
+.nav1{
+  padding-top: 2rem;;
 }
 .nav1 ul{
   display: flex;

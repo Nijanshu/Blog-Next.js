@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styles from '@/styles/blog.module.css'
 import Link from 'next/link'
-import * as fs from 'fs';  //to read individual files
 
 
 const Blog = (props) => {
@@ -10,16 +9,17 @@ const Blog = (props) => {
 
   return (
     <div>
-      <h1 className={styles.head}>Latest Blogs</h1>
+      <h1 className={styles.head}>Latest Blogs: {blogs.length}</h1>
 
-{blogs.map((blog)=>{
-
-return <div className={styles.blog} key={blog.title}>
+ {blogs.map((blog)=>{
+ 
+ return <div className={styles.blog} key={blog.title}>
   
-      <Link href={`/blogpost/${blog.slug}`}>
+      <Link href={`/blogpost/${blog._id}`}>
         <h3 className={styles.title}>{blog.title}</h3>
+         
         <div className={styles.desc}>
-            {blog.metadesc}...
+            {blog.description.substr(0,500)}...
         </div>
       </Link>
 </div>
@@ -31,31 +31,38 @@ return <div className={styles.blog} key={blog.title}>
 }
 
 
-export async function getStaticProps(context) {   //Static Site generation
-  let data = await fs.promises.readdir("blogdata");
-  let myfile;
-  let allBlogs = [];
-  for (let index = 0; index < data.length; index++) {
-      const item = data[index];
-      console.log(item)
-      myfile = await fs.promises.readFile(('blogdata/' + item), 'utf-8')
-      allBlogs.push(JSON.parse(myfile))
-  }
-
-  return {
-      props: { allBlogs }, // will be passed to the page component as props
-  }
-}
-
-
-
-// export async function getServerSideProps(context) {
-//   let data = await fetch('http://localhost:3000/api/blogs')
-//   let allBlogs = await data.json()
+// export async function getStaticProps(context) {   //Static Site generation
+//   let data = await fs.promises.readdir("blogdata");
+//   let myfile;
+//   let allBlogs = [];
+//   for (let index = 0; index < data.length; index++) {
+//       const item = data[index];
+//       console.log(item)
+//       myfile = await fs.promises.readFile(('blogdata/' + item), 'utf-8')
+//       allBlogs.push(JSON.parse(myfile))
+//   }
 
 //   return {
 //       props: { allBlogs }, // will be passed to the page component as props
 //   }
 // }
+
+
+export async function getServerSideProps(context) {
+  let data =  await fetch(`https://newwwbackkk.onrender.com/api/notes/fetchnotes`, {
+    method: 'GET', 
+    headers: {
+      "Content-Type": "application/json",
+      "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwYjYwZjA1NzBmMjliNjYxZDRjNWI2In0sImlhdCI6MTY5NzAyOTMxN30.TR-s19HixAFqeaJFYYnCM3zyAiXtshcneHNqpyVRTb0"
+  
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  });
+  let allBlogs = await data.json()
+
+  return {
+      props: { allBlogs }, // will be passed to the page component as props
+  }
+}
 
 export default Blog
