@@ -38,7 +38,6 @@ export default function Home() {
           <Link
             href={'/blog'}
             className={styles.card}
-            target="_blank"
             rel="noopener noreferrer"
           >
 
