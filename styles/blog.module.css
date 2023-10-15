@@ -12,11 +12,16 @@
     margin: 40px auto;
 }
 
+.con
 .title{
     margin: 5px auto;
     
 }
 
+.spin{
+   display: flex;
+   justify-content: center;
+}
 
 .desc{
     margin: 5px 5px;

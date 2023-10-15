@@ -25,7 +25,7 @@ export default function Home() {
 
         <div className={styles.center}>
           <Image
-            className={styles.logo}
+            className='w-[250px] h-[250px] rounded-full md:my-24'
             src="/inBlog.png"
             alt="Next.js Logo"
             width={280}
@@ -33,12 +33,11 @@ export default function Home() {
             priority
           />
         </div>
-<h2 className={styles.hd}>Enjoy the Next Gen of Blogging</h2>
+<h2 className='md:text-2xl text-xl md:my-4'>Enjoy the Next Gen of Blogging</h2>
         <div className={styles.grid}>
           <Link
             href={'/blog'}
             className={styles.card}
-            target="_blank"
             rel="noopener noreferrer"
           >
 

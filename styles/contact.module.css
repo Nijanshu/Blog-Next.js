@@ -3,8 +3,11 @@
     margin: 50px auto;
 }
 
-.head{
-    margin-bottom: 20px;
+
+
+.about {
+    font-size: larger;
+    color: blue;
 }
 
 .mb3 {
@@ -30,6 +33,7 @@
     cursor: pointer;
     padding: 5px;
     background-color: rgb(7, 44, 155);
+    border-radius: 100px;
 }
 
 

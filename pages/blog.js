@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import styles from '@/styles/blog.module.css'
 import Link from 'next/link'
 import Head from 'next/head'
 
@@ -7,7 +6,17 @@ import Head from 'next/head'
 const Blog = (props) => {
 
   const [blogs, setblogs] = useState(props.allBlogs)
+  const [loading, setloading] = useState(true)
 
+  useEffect(() => {
+    // Simulate a delay to show the spinner for demonstration purposes
+    setTimeout(() => {
+      setloading(false);
+    }, 2000); // Adjust the delay as needed
+
+    // You can keep the actual data fetching code here
+    // Replace this simulated setTimeout with your actual data fetching code
+  }, []);
   
   return (
     <>
@@ -18,9 +27,12 @@ const Blog = (props) => {
         <link rel="icon" href="/inBlog.png" />
       </Head>
     <div>
-      <h1 className={styles.head}>Latest Blogs: {blogs.length}</h1>
+      <h1 className='text-center text-violet-500 text-4xl mt-8 font-bold font-serif'>Latest Blogs: {blogs.length}</h1>
+      <section className="text-gray-300 bg-black body-font">
+  <div className="container px-10 py-10 mx-auto">
+<div className="flex flex-wrap -m-4">
 
-      {blogs.map((blog) => {
+      {!loading&&blogs.map((blog) => {
   const dat = new Date(blog.date);
   const options = {
     year: 'numeric',
@@ -30,18 +42,30 @@ const Blog = (props) => {
   };
   const formattedDate = dat.toLocaleDateString('en-US', options);
 
-  return (
-    <div className={styles.blog} key={blog.title}>
-      <Link href={`/blogpost/${blog._id}`}>
-        <h2 className={styles.title}>{blog.title}</h2>
-      </Link>
-      <span>Date: {formattedDate}</span>
-      <div className={styles.desc}>{blog.description.substr(0, 500)}... <a className={styles.link} href={`/blogpost/${blog._id}`}>Read Full Article</a> </div>
-    </div>
+  return (<>
+ 
+      <div className="xl:w-1/4 md:w-1/2 p-4">
+          <Link href={`/blogpost/${blog._id}`}>
+        <div className="bg-gray-700 p-6 rounded-lg">
+          <img className=" rounded w-full object-cover object-center mb-6" src="/phone.webp" width={500} height={100} alt="content"/>
+          
+          <h3 className="tracking-widest text-indigo-500 text-xs font-medium title-font">Date: {formattedDate}</h3>
+          <h2 className="text-lg text-gray-200 font-medium title-font mb-4">{blog.title}</h2>
+          <p className="leading-relaxed text-base">
+          <a className='text-[#3acaef]' href={`/blogpost/${blog._id}`}>Read Full Article</a>            </p>
+        </div>
+          </Link>
+      </div>
+    
+      </>
+      
   );
 })}
 
-      
+
+    </div>
+    </div>
+    </section>
     </div>
     </>
   )

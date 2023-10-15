@@ -8,10 +8,6 @@
 }
 
 
-.hd{
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  font-weight: bold;
-}
 .nav1{
   padding-top: 2rem;;
 }
@@ -166,7 +162,7 @@
   }
 
   .center {
-    padding: 8rem 0 6rem;
+    padding: 4rem 0 6rem;
   }
 
   .center::before {

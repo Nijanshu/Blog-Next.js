@@ -50,12 +50,12 @@ const Contact = () => {
 
     return <div className={styles.container}>
          <Head>
-        <title >Contact Us</title>
+        <title>Contact Us</title>
         <meta name="description" content="Contact Us" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/inBlog.png" />
       </Head>
-        <h1 className={styles.head}>Contact Us</h1>
+        <h1 className='text-4xl font-serif my-4'>Contact Us</h1>
         <form onSubmit={handleSubmit}>
             <div className={styles.mb3}>
                 <label htmlFor="name" className={styles.formlabel}>Enter your name</label>
