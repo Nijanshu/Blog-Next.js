@@ -47,7 +47,7 @@ const Blog = (props) => {
       <div className="xl:w-1/4 md:w-1/2 p-4">
           <Link href={`/blogpost/${blog._id}`}>
         <div className="bg-gray-700 p-6 rounded-lg">
-          <img className=" rounded w-full object-cover object-center mb-6" src="/phone.webp" width={500} height={100} alt="content"/>
+          <img className=" rounded w-full object-cover object-center mb-6" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRp9t03u7MhtmOHnUbiqcNQ2vmP0ngAh71ubw&usqp=CAU" width={500} height={100} alt="content"/>
           
           <h3 className="tracking-widest text-indigo-500 text-xs font-medium title-font">Date: {formattedDate}</h3>
           <h2 className="text-lg text-gray-200 font-medium title-font mb-4">{blog.title}</h2>
