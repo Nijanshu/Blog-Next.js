@@ -43,9 +43,9 @@ const Blog = (props) => {
         <link rel="icon" href="/inBlog.png" />
       </Head>
     <div>
-      <div>
-        <input type="text" name="" onChange={change} value={search} id="" />
-        <button type='button' onClick={submit}>Submit</button>
+      <div className='m-auto flex md:w-[50%] mt-2'>
+        <input type="text" name="" onChange={change} placeholder='search here' className='bg-slate-50 border rounded-3xl w-[80%] px-3 py-2' value={search} id="" />
+        <button type='button' className='bg-orange-600 mx-2 p-2 rounded-3xl ' onClick={submit}>Submit</button>
       </div>
       {clk?<h1 className='text-center text-violet-500 text-4xl mt-8 font-bold font-serif'>Search Results: {blogs.length}</h1>:
       <h1 className='text-center text-violet-500 text-4xl mt-8 font-bold font-serif'>Latest Blogs: {blogs.length}</h1> }
