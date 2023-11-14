@@ -1,41 +1,65 @@
-import React, { useEffect, useState } from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
-import Head from 'next/head'
+import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import Head from 'next/head';
 
 
 const Blog = (props) => {
+  const [blogs, setBlogs] = useState(props.allBlogs);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState('');
+  const [clk, setClk] = useState(false);
+  const [pageNumber, setPageNumber] = useState(1);
 
-  const [blogs, setblogs] = useState(props.allBlogs)
-  const [bloggs, setbloggs] = useState(props.allBlogs)
-  const [loading, setloading] = useState(true)
-  const [search, setsearch] = useState('')
-  const [clk, setclk] = useState(false)
+  const change = (e) => {
+    setSearch(e.target.value);
+  };
 
-  console.log(props.allBlogs)
+  const submit = () => {
+    setBlogs(props.allBlogs.filter((blog) => blog.description.includes(search)));
+    setClk(true);
+  };
 
-  let change=(e)=>{
-    setsearch(e.target.value)
-  }
+  const loadMore = async () => {
+    setPageNumber(pageNumber + 1);
+    const response = await fetch(`https://newwwbackkk.onrender.com/api/notes/fetchnotes?page=${pageNumber}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwYjYwZjA1NzBmMjliNjYxZDRjNWI2In0sImlhdCI6MTY5NzAyOTMxN30.TR-s19HixAFqeaJFYYnCM3zyAiXtshcneHNqpyVRTb0',
+      },
+    });
 
-  let submit=()=>{
-    console.log("hi")
-      setblogs(bloggs.filter(blog=>blog.description.includes(search)))
-    setclk(true)
-  }
+    const moreBlogs = await response.json();
+    setBlogs((prevBlogs) => [...prevBlogs, ...moreBlogs]);
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const isBottom =
+        window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight;
+
+      if (isBottom) {
+        loadMore();
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [pageNumber]);
 
   useEffect(() => {
     // Simulate a delay to show the spinner for demonstration purposes
     setTimeout(() => {
-      setloading(false);
+      setLoading(false);
     }, 2000); // Adjust the delay as needed
-
-    // You can keep the actual data fetching code here
-    // Replace this simulated setTimeout with your actual data fetching code
   }, []);
-  
+
   return (
-    <div key={blogs._id}>
+    <div>
     <Head>
         <title>Blogs</title>
         <meta name="description" content="inBlog Blogs" />
@@ -63,9 +87,9 @@ const Blog = (props) => {
   };
   const formattedDate = dat.toLocaleDateString('en-US', options);
 
-  return (<>
+  return (
  
-      <div className="xl:w-1/4 md:w-1/2 p-4">
+      <div className="xl:w-1/4 md:w-1/2 p-4" key={blog._id}>
           <Link href={`/blogpost/${blog._id}`}>
         <div className="bg-gray-700 p-6 rounded-lg">
         <Image
@@ -84,8 +108,7 @@ const Blog = (props) => {
           </Link>
       </div>
     
-      </>
-      
+     
   );
 })}
 
@@ -94,12 +117,13 @@ const Blog = (props) => {
     </div>
     </section>
     </div>
+    <button onClick={loadMore}>Load More</button>
     </div>
   )
 }
 
 
-// export async function getStaticProps(context) {   //Static Site generation
+// export async function getserversideprops(context) {   //Static Site generation
 //   let data = await fs.promises.readdir("blogdata");
 //   let myfile;
 //   let allBlogs = [];
@@ -116,21 +140,23 @@ const Blog = (props) => {
 // }
 
 
-export async function getServerSideProps(context) {
-  let data =  await fetch(`https://newwwbackkk.onrender.com/api/notes/fetchnotes`, {
-    method: 'GET', 
+export async function getStaticProps(context) {
+  const pageNumber = 1; // Set the initial page number
+  const response = await fetch(`https://newwwbackkk.onrender.com/api/notes/fetchnotes`, {
+    method: 'GET',
     headers: {
-      "Content-Type": "application/json",
-      "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwYjYwZjA1NzBmMjliNjYxZDRjNWI2In0sImlhdCI6MTY5NzAyOTMxN30.TR-s19HixAFqeaJFYYnCM3zyAiXtshcneHNqpyVRTb0"
-  
-      // 'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Type': 'application/json',
+      'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwYjYwZjA1NzBmMjliNjYxZDRjNWI2In0sImlhdCI6MTY5NzAyOTMxN30.TR-s19HixAFqeaJFYYnCM3zyAiXtshcneHNqpyVRTb0',
     },
+   
   });
-  let allBlogs = await data.json()
+
+  const allBlogs = await response.json();
   allBlogs.reverse();
+
   return {
-      props: { allBlogs }, // will be passed to the page component as props
-  }
+    props: { allBlogs },
+  };
 }
 
 export default Blog
