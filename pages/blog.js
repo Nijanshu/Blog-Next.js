@@ -1,12 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import Head from 'next/head'
 
 
 const Blog = (props) => {
 
   const [blogs, setblogs] = useState(props.allBlogs)
+  const [bloggs, setbloggs] = useState(props.allBlogs)
   const [loading, setloading] = useState(true)
+  const [search, setsearch] = useState('')
+  const [clk, setclk] = useState(false)
+
+  console.log(props.allBlogs)
+
+  let change=(e)=>{
+    setsearch(e.target.value)
+  }
+
+  let submit=()=>{
+    console.log("hi")
+      setblogs(bloggs.filter(blog=>blog.description.includes(search)))
+    setclk(true)
+  }
 
   useEffect(() => {
     // Simulate a delay to show the spinner for demonstration purposes
@@ -19,7 +35,7 @@ const Blog = (props) => {
   }, []);
   
   return (
-    <>
+    <div key={blogs._id}>
     <Head>
         <title>Blogs</title>
         <meta name="description" content="inBlog Blogs" />
@@ -27,7 +43,12 @@ const Blog = (props) => {
         <link rel="icon" href="/inBlog.png" />
       </Head>
     <div>
-      <h1 className='text-center text-violet-500 text-4xl mt-8 font-bold font-serif'>Latest Blogs: {blogs.length}</h1>
+      <div>
+        <input type="text" name="" onChange={change} value={search} id="" />
+        <button type='button' onClick={submit}>Submit</button>
+      </div>
+      {clk?<h1 className='text-center text-violet-500 text-4xl mt-8 font-bold font-serif'>Search Results: {blogs.length}</h1>:
+      <h1 className='text-center text-violet-500 text-4xl mt-8 font-bold font-serif'>Latest Blogs: {blogs.length}</h1> }
       <section className="text-gray-300 bg-black body-font">
   <div className="container px-10 py-10 mx-auto">
 <div className="flex flex-wrap -m-4">
@@ -47,8 +68,14 @@ const Blog = (props) => {
       <div className="xl:w-1/4 md:w-1/2 p-4">
           <Link href={`/blogpost/${blog._id}`}>
         <div className="bg-gray-700 p-6 rounded-lg">
-          <img className=" rounded w-full object-cover object-center mb-6" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRp9t03u7MhtmOHnUbiqcNQ2vmP0ngAh71ubw&usqp=CAU" width={500} height={100} alt="content"/>
-          
+        <Image
+  className="rounded w-full object-cover object-center mb-6"
+  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRp9t03u7MhtmOHnUbiqcNQ2vmP0ngAh71ubw&usqp=CAU"
+  width={200}
+  height={200}
+  loading='lazy'
+  alt="content"
+/>          
           <h3 className="tracking-widest text-indigo-500 text-xs font-medium title-font">Date: {formattedDate}</h3>
           <h2 className="text-lg text-gray-200 font-medium title-font mb-4">{blog.title}</h2>
           <p className="leading-relaxed text-base">
@@ -67,7 +94,7 @@ const Blog = (props) => {
     </div>
     </section>
     </div>
-    </>
+    </div>
   )
 }
 
@@ -100,7 +127,7 @@ export async function getServerSideProps(context) {
     },
   });
   let allBlogs = await data.json()
-
+  allBlogs.reverse();
   return {
       props: { allBlogs }, // will be passed to the page component as props
   }

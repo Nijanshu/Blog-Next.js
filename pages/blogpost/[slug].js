@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styles from '@/styles/blog.module.css'
 import Head from 'next/head';
+import { LazyResult } from 'postcss';
 
 
 const slug = (props) => {
@@ -28,7 +29,7 @@ const slug = (props) => {
         <link rel="icon" href="/inBlog.png" />
       </Head>
    
-    {blog && <div dangerouslySetInnerHTML={createMarkup(blog.description)}></div>}
+    {blog && < div dangerouslySetInnerHTML={createMarkup(blog.description)} ></div>}
       </div>
 };
 

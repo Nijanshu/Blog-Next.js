@@ -4,4 +4,9 @@ const nextConfig = {
   trailingSlash: true
 }
 
-module.exports = nextConfig
+
+module.exports = {
+  images: {
+    domains: ['encrypted-tbn0.gstatic.com'],
+  },
+}
