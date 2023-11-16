@@ -3,10 +3,24 @@ import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import Link from 'next/link'
+import { useState, useEffect } from 'react'
+import Spinner from './Spinner'
+
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+export default function Home(props) {
+  
+  const load = () => {
+    if (props.setspinner) {
+      props.setspinner(true);
+      // Assuming you want to keep the spinner for 2 seconds as in your original code
+      setTimeout(() => {
+        props.setspinner(false);
+      }, 5000);
+    }
+  };
+  
   return (
     <>
       <Head>
@@ -16,18 +30,16 @@ export default function Home() {
         <link rel="icon" href="/inBlog.png" />
       </Head>
       
-     
-      <main className={`${styles.main} ${inter.className}`}>
+     <main className={`${styles.main} ${inter.className}`}>
         <div className={styles.description}>
           
-         
         </div>
 
         <div className={styles.center}>
           <Image
-            className='w-[250px] h-[250px] md:my-24'
+            className='w-[250px] h-[250px] md:my-24 rounded-xl'
             src="/BioStem.png"
-            alt="Next.js Logo"
+            alt="BioStem Logo"
             width={280}
             height={237}
             priority
@@ -39,6 +51,7 @@ export default function Home() {
             href={'/blog'}
             className={styles.card}
             rel="noopener noreferrer"
+            onClick={load}
           >
 
             <h3>
@@ -52,6 +65,7 @@ export default function Home() {
           
         </div>
       </main>
+      
     </>
   )
 }
