@@ -52,14 +52,14 @@ const Blog = (props) => {
       </Head>
       {!spinner && (
         <div>
-          <form className='m-auto flex md:w-[50%] mt-2' onSubmit={submit}>
+          <form className='mx-auto mt-6 mb-4 flex md:w-[50%]' onSubmit={submit}>
             <input type="text" name="" onChange={change} placeholder='search here' className='bg-slate-50 text-black border rounded-3xl w-[80%] px-3 py-2' value={search} id="" />
             <input type='submit' className='bg-orange-600 mx-2 p-2 cursor-pointer rounded-3xl '/>
           </form>
           {clk ? (
-            <h1 className='text-center text-violet-500 text-4xl mt-8 font-bold font-serif'>Search Results: {blogs.length}</h1>
+            <h1 className='text-center text-violet-500 text-4xl mt-4 font-bold font-serif'>Search Results: {blogs.length}</h1>
           ) : (
-            <h1 className='text-center text-violet-500 text-4xl mt-8 font-bold font-serif'>Latest Blogs: {blogs.length}</h1>
+            <h1 className='text-center text-violet-500 text-4xl mt-4 font-bold font-serif'>Latest Blogs: {blogs.length}</h1>
           )}
           <section className="text-gray-300 bg-black body-font">
             <div className="container px-10 py-10 mx-auto">
@@ -76,7 +76,7 @@ const Blog = (props) => {
                   return (
                     <div className="xl:w-1/4 md:w-1/2 p-4" key={blog._id}>
                       <Link href={`/blogpost/${blog._id}`}>
-                        <div className="bg-gray-700 p-6 rounded-lg">
+                        <div className="bg-gray-700 p-4 rounded-lg">
                           <Image
                             className="rounded w-full object-cover object-center mb-6"
                             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRp9t03u7MhtmOHnUbiqcNQ2vmP0ngAh71ubw&usqp=CAU"
