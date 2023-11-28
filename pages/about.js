@@ -14,7 +14,7 @@ const About = () => {
       <h1 className='text-3xl my-6 font-serif font-bold'>About inBlog</h1>
       <h2 className='text-3xl mb-2'>Introduction</h2>
       <div className={styles.content}>
-      🌿 Welcome to [Your Website Name], a virtual haven where the world of web development meets the wonders of biology! This platform is the brainchild of Nijanshu Singh, a passionate web developer, and it's here to bring you captivating blogs written by Kristine Villanueva, an enthusiastic undergraduate biology student.
+      🌿 Welcome to BioStem, a virtual haven where the world of web development meets the wonders of biology! This platform is the brainchild of Nijanshu Singh, a passionate web developer, and it's here to bring you captivating blogs written by Kristine Villanueva, an enthusiastic undergraduate biology student.
 
 <br />
 <br />
@@ -32,20 +32,20 @@ const About = () => {
 📚 This collaborative effort between Nijanshu Singh and Kristine Villanueva is a celebration of the intersection between technology and science, bringing together the art of web development with the passion for sharing knowledge. We invite you to explore, learn, and engage with the rich tapestry of biology through Kristine's insightful blogs.
 <br />
 <br />
-🌱 Thank you for being a part of our community at [Your Website Name]. Together, let's foster a love for biology and create a space where learning is not just informative but also enjoyable. Happy exploring!
+🌱 Thank you for being a part of our community at BioStem. Together, let's foster a love for biology and create a space where learning is not just informative but also enjoyable. Happy exploring!
 
 </div>
 
 
         <h2 className='text-3xl mb-2'>From the Creator</h2>
         <div className={styles.content}>
-        🌟 Greetings from [Your Website Name]! I'm Nijanshu Singh, the person behind the scenes working to make your online experience seamless and enjoyable. As a web developer, I've put my heart and soul into crafting this space with the hope that it becomes a comfortable digital home for you.
+        🌟 Greetings from BioStem! I'm Nijanshu Singh, the person behind the scenes working to make your online experience seamless and enjoyable. As a web developer, I've put my heart and soul into crafting this space with the hope that it becomes a comfortable digital home for you.
 <br />
 <br />
 🖥️ With a passion for clean design and user-friendly interfaces, my goal is to create a website that not only looks good but also feels intuitive to navigate. Every line of code has been written with care, and every design choice is made with your experience in mind.
 <br />
 <br />
-💻 As you explore [Your Website Name], you'll notice the simplicity and functionality that I strive to maintain. It's a reflection of my belief that the best websites are those that serve their purpose without unnecessary complexities.
+💻 As you explore BioStem, you'll notice the simplicity and functionality that I strive to maintain. It's a reflection of my belief that the best websites are those that serve their purpose without unnecessary complexities.
 <br />
 <br />
 
@@ -53,7 +53,7 @@ const About = () => {
 
 <br />
 <br />
-🙏 Thank you for being a part of this journey. Feel free to explore, discover, and make yourself at home. [Your Website Name] is as much yours as it is mine.
+🙏 Thank you for being a part of this journey. Feel free to explore, discover, and make yourself at home. BioStem is as much yours as it is mine.
 <br />
 <br />
 
