@@ -27,7 +27,7 @@ export default function Home(props) {
         <title>BioStem</title>
         <meta name="description" content="inBlog" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/BioStem.png" />
+        <link rel="icon" href="/logo.png" />
       </Head>
       
      <main className={`${styles.main} ${inter.className}`}>
