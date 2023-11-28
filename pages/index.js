@@ -27,7 +27,7 @@ export default function Home(props) {
         <title>inBlog</title>
         <meta name="description" content="inBlog" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/inBlog.png" />
+        <link rel="icon" href="/BioStem.png" />
       </Head>
       
      <main className={`${styles.main} ${inter.className}`}>
@@ -45,7 +45,7 @@ export default function Home(props) {
             priority
           />
         </div>
-<h2 className='md:text-2xl text-xl md:my-4'>Enjoy the Next Gen of Blogging</h2>
+<h2 className='md:text-2xl text-xl md:my-4'>Enjoy the Biological Wonders</h2>
         <div className={styles.grid}>
           <Link
             href={'/blog'}
