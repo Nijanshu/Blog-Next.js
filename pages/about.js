@@ -9,7 +9,7 @@ const About = () => {
         <title>About Us</title>
         <meta name="description" content="About US" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/inBlog.png" />
+        <link rel="icon" href="/logo.png" />
       </Head>
       <h1 className='text-3xl my-6 font-serif font-bold'>About inBlog</h1>
       <h2 className='text-3xl mb-2'>Introduction</h2>
