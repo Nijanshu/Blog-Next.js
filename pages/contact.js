@@ -53,7 +53,7 @@ const Contact = () => {
         <title>Contact Us</title>
         <meta name="description" content="Contact Us" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/inBlog.png" />
+        <link rel="icon" href="/logo.png" />
       </Head>
         <h1 className='text-4xl font-serif my-4'>Contact Us</h1>
         <form onSubmit={handleSubmit}>
