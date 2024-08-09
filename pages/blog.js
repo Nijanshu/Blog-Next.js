@@ -5,10 +5,12 @@ import Head from 'next/head';
 import Spinner from './Spinner';
 
 const Blog = (props) => {
-  const [blogs, setBlogs] = useState(props.allBlogs);
+  const [blogs, setBlogs] = useState(props.allBlogs.slice(0, 8)); // Load first 8 blogs
   const [search, setSearch] = useState('');
   const [clk, setClk] = useState(false);
   const [spinner, setSpinner] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false); // To track loading more blogs
+  const [currentIndex, setCurrentIndex] = useState(8); // Track the current index for loading more blogs
 
   const change = (e) => {
     setSearch(e.target.value);
@@ -16,23 +18,27 @@ const Blog = (props) => {
 
   const submit = (e) => {
     e.preventDefault();
-    setBlogs(props.allBlogs.filter((blog) => blog.description.includes(search.toLowerCase())));
+    const filteredBlogs = props.allBlogs.filter((blog) => blog.description.includes(search.toLowerCase()));
+    setBlogs(filteredBlogs.slice(0, 8)); // Reset to first 8 filtered blogs
     setClk(true);
+    setCurrentIndex(8); // Reset index for new search
+  };
+
+  const loadMoreBlogs = () => {
+    if (loadingMore || blogs.length >= props.allBlogs.length) return; // Prevent loading if already loading or no more blogs left
+    setLoadingMore(true);
+
+    // Load the next 8 blogs
+    const nextBlogs = props.allBlogs.slice(currentIndex, currentIndex + 8);
+    setBlogs((prevBlogs) => [...prevBlogs, ...nextBlogs]);
+    setCurrentIndex(currentIndex + 8);
+    setLoadingMore(false);
   };
 
   useEffect(() => {
-    // Simulating data fetching delay
     const fetchData = async () => {
       try {
-        // Fetch data here (you can use your API endpoint)
-        // const response = await fetch('your_api_endpoint');
-        // const data = await response.json();
-        // setBlogs(data);
-        // ...
-
-        // Simulating a delay for demonstration purposes
         await new Promise(resolve => setTimeout(resolve, 2000));
-
         setSpinner(false);
       } catch (error) {
         console.error('Error fetching blog data:', error.message);
@@ -40,7 +46,18 @@ const Blog = (props) => {
     };
 
     fetchData();
-  }, []); // Empty dependency array ensures this effect runs only once after mounting
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 100 && !loadingMore) {
+        loadMoreBlogs();
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [loadingMore, blogs, currentIndex]);
 
   return (
     <div>
@@ -53,13 +70,13 @@ const Blog = (props) => {
       {!spinner && (
         <div>
           <form className='mx-auto mt-6 mb-4 flex md:w-[50%]' onSubmit={submit}>
-            <input type="text" name="" onChange={change} placeholder='search here' className='bg-slate-50 text-black border rounded-3xl w-[80%] px-3 py-2' value={search} id="" />
+            <input type="text" onChange={change} placeholder='search here' className='bg-slate-50 text-black border rounded-3xl w-[80%] px-3 py-2' value={search} />
             <input type='submit' className='bg-orange-600 mx-2 p-2 cursor-pointer rounded-3xl hover:bg-orange-700'/>
           </form>
           {clk ? (
             <h1 className='text-center text-violet-500 text-4xl mt-4 font-bold font-serif'>Search Results: {blogs.length}</h1>
           ) : (
-            <h1 className='text-center text-violet-500 text-4xl mt-4 font-bold font-serif'>Latest Blogs: {blogs.length}</h1>
+            <h1 className='text-center text-violet-500 text-4xl mt-4 font-bold font-serif'>Latest Blogs: {props.allBlogs.length}</h1>
           )}
           <section className="text-gray-300 bg-black body-font">
             <div className="container px-10 py-10 mx-auto">
@@ -74,7 +91,7 @@ const Blog = (props) => {
                   const formattedDate = dat.toLocaleDateString('en-US', options);
 
                   return (
-                    <div className="xl:w-1/4 md:w-1/2 p-4" key={blog._id}>
+                    <div className="xl:w-1/4 md:w-1/2 p-4" data-aos="zoom-in" data-aos-duration="1000" key={blog._id}>
                       <Link href={`/blogpost/${blog._id}`}>
                         <div className="bg-gray-700 p-4 rounded-lg transition-all hover:scale-105 duration-200">
                           <Image
@@ -95,9 +112,9 @@ const Blog = (props) => {
               </div>
             </div>
           </section>
+          {loadingMore && <Spinner />} {/* Show spinner while loading more blogs */}
         </div>
       )}
-
       {spinner && <Spinner />}
     </div>
   );
@@ -122,12 +139,12 @@ export async function getStaticProps(context) {
 
     return {
       props: { allBlogs },
-      revalidate: 10, // In seconds
+      revalidate: 10,
     };
   } catch (error) {
-    console.error('Error fetching blog data:', error.message);
+    console.error('Error fetching blog data:', error);
     return {
-      props: { allBlogs: [] }, // Provide an empty array or handle it as per your application needs
+      props: { allBlogs: [] },
       revalidate: 10,
     };
   }
