@@ -38,6 +38,7 @@ export default function Home(props) {
         <div className={styles.center}>
           <Image
             className='w-[250px] h-[250px] md:my-24 rounded-xl'
+            loader={null}
             src="/BioStem.png"
             alt="BioStem Logo"
             width={280}
