@@ -7,6 +7,8 @@ const nextConfig = {
 
 module.exports = {
   images: {
-    domains: ['encrypted-tbn0.gstatic.com'],
+    loader: 'custom',
+    path: '/_next/image',
+    domains: ['cdn.example.com'],
   },
-}
+};
