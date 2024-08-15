@@ -10,6 +10,15 @@
     padding: 0px 20px;
     width: 70vw;
     margin: 40px auto;
+    color: aliceblue;
+}
+
+.blog a{
+    text-decoration: none;
+}
+.blog span{
+    color: aliceblue;
+    text-decoration: none;
 }
 
 .con

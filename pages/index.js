@@ -11,16 +11,6 @@ import Spinner from './Spinner'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home(props) {
-  
-  const load = () => {
-    if (props.setspinner) {
-      props.setspinner(true);
-      // Assuming you want to keep the spinner for 2 seconds as in your original code
-      setTimeout(() => {
-        props.setspinner(false);
-      }, 5000);
-    }
-  };
 
   const customLoader = ({ src, width, quality }) => {
     return `${src}`;
@@ -56,7 +46,7 @@ export default function Home(props) {
             href={'/blog'}
             className={styles.card}
             rel="noopener noreferrer"
-            onClick={load}
+            onClick={props.load}
           >
 
 

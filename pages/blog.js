@@ -63,7 +63,7 @@ const Blog = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve,2000));
 
         setSpinner(false);
       } catch (error) {
@@ -149,7 +149,7 @@ const Blog = (props) => {
                     <CustomCard className="tw-p-4 tw-rounded-lg ">
       <div className="tw-animate-pulse">
                       
-                      {/* <Card.Img variant="top" className="tw-placeholder-glow"> */}
+                      {/* <Card.Img variant="top"  className="tw-img-fluid tw-placeholder-glow" width={800}  height={500}/> */}
                         <Placeholder as={Card.Img} className="tw-img-fluid tw-placeholder-glow" variant="top" width={800}
         height={500}/>
                       {/* </Card.Img> */}
@@ -181,7 +181,7 @@ const Blog = (props) => {
 
               return (
                 <div className="xl:tw-w-1/4 md:tw-w-1/2 tw-p-4" data-aos="zoom-in" data-aos-duration="1000" key={blog._id}>
-                  <Link href={`/blogpost/${blog._id}`} className='text-decoration-none'>
+                  <Link href={`/blogpost/${blog._id}`} className='text-decoration-none' onClick={props.load}>
                    
       <CustomCard className="tw-p-4 tw-rounded-lg tw-transition-all hover:tw-scale-105 tw-duration-200 ">
         <CustomCard.Img 

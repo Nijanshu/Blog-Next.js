@@ -14,16 +14,26 @@ import { useEffect } from 'react'
 
 export default function App({ Component, pageProps }) {
   const [spinner, setspinner] = useState(false)
+
+  const load = () => {
+    if (setspinner) { // if the setspinner function exists. 
+      setspinner(true);
+      // Assuming you want to keep the spinner for 2 seconds as in your original code
+      setTimeout(() => {
+        setspinner(false);
+      },3000);
+    }
+  };
   
   useEffect(() => {
     AOS.init();
   }, []); // Empty dependency array ensures this runs once after component mounts
 
 
-  return <div style={{background:'black',height:'auto'}} >
+  return <div style={{background:'black'}} >
 
-  {!spinner&&<><Navbar spinner={spinner} setspinner={setspinner}/>
-  <Component {...pageProps} spinner={spinner} setspinner={setspinner}/></>}
+  {!spinner&&<><Navbar spinner={spinner} load={load} setspinner={setspinner}/>
+  <Component {...pageProps} spinner={spinner} load={load} setspinner={setspinner}/></>}
   {spinner&&<Spinner/>}
   </div> 
 }
