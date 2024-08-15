@@ -31,7 +31,7 @@ const Contact = () => {
             .catch((error) => {
                 console.error('Error:', error);
             });
-
+    
     }
     const handleChange = (e) => {
         if (e.target.name == 'phone') {
@@ -47,7 +47,7 @@ const Contact = () => {
             setname(e.target.value)
         }
     }
-
+    
     return <div className={styles.container}>
          <Head>
         <title>Contact Us</title>
@@ -55,7 +55,7 @@ const Contact = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/logo.png" />
       </Head>
-        <h1 className='text-4xl font-serif my-4'>Contact Us</h1>
+        <h1 className='tw-text-4xl tw-font-serif tw-my-4'>Contact Us</h1>
         <form onSubmit={handleSubmit}>
             <div className={styles.mb3}>
                 <label htmlFor="name" className={styles.formlabel}>Enter your name</label>
@@ -76,6 +76,6 @@ const Contact = () => {
             <button type="submit" className={styles.submit}>Submit</button>
         </form>
     </div>;
-};
+}
 
 export default Contact;

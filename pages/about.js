@@ -11,8 +11,8 @@ const About = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/logo.png" />
       </Head>
-      <h1 className='text-3xl my-6 font-serif font-bold'>About inBlog</h1>
-      <h2 className='text-3xl mb-2'>Introduction</h2>
+      <h1 className='tw-text-3xl tw-my-6 tw-font-serif tw-font-bold'>About inBlog</h1>
+      <h2 className='tw-text-3xl tw-mb-2'>Introduction</h2>
       <div className={styles.content}>
         🌿 Welcome to BioStem, a virtual haven where the world of web development meets the wonders of biology! This platform is the brainchild of Nijanshu Singh, a passionate web developer, and it's here to bring you captivating blogs written by Kristine Villanueva, an enthusiastic undergraduate biology student.
 
@@ -37,8 +37,7 @@ const About = () => {
       </div>
       <br />
 
-
-      <h2 className='text-3xl mb-2'>From the Creator</h2>
+      <h2 className='tw-text-3xl tw-mb-2'>From the Creator</h2>
       <div className={styles.content}>
         🌟 Greetings from BioStem! I'm Nijanshu Singh, the person behind the scenes working to make your online experience seamless and enjoyable. As a web developer, I've put my heart and soul into crafting this space with the hope that it becomes a comfortable digital home for you.
         <br />
@@ -61,53 +60,49 @@ const About = () => {
         Best,<br />
         Nijanshu Singh
 
-
-<br />
-
+        <br />
 
       </div>
 
-
-      <h2 className='text-3xl mb-2'>From the Author</h2>
+      <h2 className='tw-text-3xl tw-mb-2'>From the Author</h2>
       <div className={styles.content}>
-      🌱 Let's Unravel Biology Together: Your VIP Pass to BioStem! 🎉
-<br />
-<br />
-Hey Marvelous Readers,
-<br />
-<br />
+        🌱 Let's Unravel Biology Together: Your VIP Pass to BioStem! 🎉
+        <br />
+        <br />
+        Hey Marvelous Readers,
+        <br />
+        <br />
 
-It's Kristine Villanueva, your friendly biology aficionado, and I'm thrilled to invite you to the bio-fiesta happening at BioStem.
-<br />
-<br />
+        It's Kristine Villanueva, your friendly biology aficionado, and I'm thrilled to invite you to the bio-fiesta happening at BioStem.
+        <br />
+        <br />
 
-📜 Heart-to-Heart:
-<br />
+        📜 Heart-to-Heart:
+        <br />
 
-Why did I start this bio-hub? Because I believe in making science not just accessible but downright fun! Here, you're not just a reader; you're my bio-buddy on this incredible journey.
-<br />
-<br />
+        Why did I start this bio-hub? Because I believe in making science not just accessible but downright fun! Here, you're not just a reader; you're my bio-buddy on this incredible journey.
+        <br />
+        <br />
 
-🔬 Embark on a Bio-Adventure:
-<br />
+        🔬 Embark on a Bio-Adventure:
+        <br />
 
-Insider's Perspective: Let's dissect complex topics through my lens. Think of it as a backstage pass to how I view the intricacies of biology.
-My "Aha" Moments: Ever had those lightbulb moments studying biology? I'll be sharing mine—expect enthusiasm, aha-moments, and perhaps a sprinkle of nerdiness.
-Your Takeaways: Dive into articles that go beyond the textbooks, exploring the practical and fascinating sides of biology. Let's make learning stick!
-Ready to join me in peeling back the layers of biology? Your VIP pass to understanding awaits!
-<br />
-<br />
+        Insider's Perspective: Let's dissect complex topics through my lens. Think of it as a backstage pass to how I view the intricacies of biology.
+        My "Aha" Moments: Ever had those lightbulb moments studying biology? I'll be sharing mine—expect enthusiasm, aha-moments, and perhaps a sprinkle of nerdiness.
+        Your Takeaways: Dive into articles that go beyond the textbooks, exploring the practical and fascinating sides of biology. Let's make learning stick!
+        Ready to join me in peeling back the layers of biology? Your VIP pass to understanding awaits!
+        <br />
+        <br />
 
-Enthusiastically,
-<br />
+        Enthusiastically,
+        <br />
 
-Kristine Villanueva
-<br />
+        Kristine Villanueva
+        <br />
 
- Bio Narrator, BioStem🌿
+        Bio Narrator, BioStem🌿
+      </div>
     </div>
-    </div>
-
   )
 }
 

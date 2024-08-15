@@ -1,6 +1,8 @@
 .container {
     max-width: 45vw;
     margin: 50px auto;
+    color: aliceblue;
+    height: 100vh;
 }
 
 
@@ -26,6 +28,7 @@
 .textarea{
     width: 50vw;
     height: 100px;
+    padding: 7px;
 }
 
 .submit{

@@ -1,5 +1,6 @@
 import '@/styles/globals.css'
 import Navbar from '@/Components/Navbar'
+// import  "bootstrap/dist/css/bootstrap.min.css"
 import '@/styles/globals.css'
 import { useState } from 'react'
 import Spinner from './Spinner'
@@ -19,10 +20,10 @@ export default function App({ Component, pageProps }) {
   }, []); // Empty dependency array ensures this runs once after component mounts
 
 
-  return <>
+  return <div style={{background:'black',height:'auto'}} >
 
   {!spinner&&<><Navbar spinner={spinner} setspinner={setspinner}/>
   <Component {...pageProps} spinner={spinner} setspinner={setspinner}/></>}
   {spinner&&<Spinner/>}
-  </> 
+  </div> 
 }

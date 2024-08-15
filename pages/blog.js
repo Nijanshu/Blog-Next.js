@@ -2,7 +2,12 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Head from 'next/head';
+import styled from 'styled-components';
+
 import Spinner from './Spinner';
+
+import Card from 'react-bootstrap/Card';
+import Placeholder from 'react-bootstrap/Placeholder';
 
 const Blog = (props) => {
   const [blogs, setBlogs] = useState(props.allBlogs.slice(0, 8));
@@ -14,6 +19,12 @@ const Blog = (props) => {
   const [images, setImages] = useState(
     props.allBlogs.slice(0, 8).map(blog => blog.img)
   );
+
+  const CustomCard = styled(Card)`
+   background-color: #1a2023e0;
+   text-decoration: none;
+   
+`;
 
   const change = (e) => setSearch(e.target.value);
 
@@ -53,6 +64,7 @@ const Blog = (props) => {
     const fetchData = async () => {
       try {
         await new Promise(resolve => setTimeout(resolve, 2000));
+
         setSpinner(false);
       } catch (error) {
         console.error('Error fetching blog data:', error.message);
@@ -83,8 +95,6 @@ const Blog = (props) => {
   };
 
 
-
-
   return (
     <div>
       <Head>
@@ -93,56 +103,117 @@ const Blog = (props) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/logo.png" />
       </Head>
-      {!spinner && (
+      
         <div>
-          <form className='mx-auto mt-6 mb-4 flex md:w-[50%]' onSubmit={submit}>
-            <input type="text" onChange={change} placeholder='search here' className='bg-slate-50 text-black border rounded-3xl w-[80%] px-3 py-2' value={search} />
-            <input type='submit' className='bg-orange-600 mx-2 p-2 cursor-pointer rounded-3xl hover:bg-orange-700' />
+          <form className='tw-mx-auto tw-mt-6 tw-mb-4 tw-flex md:tw-w-[50%]' onSubmit={submit}>
+            <input type="text" onChange={change} placeholder='search here' className='tw-bg-slate-50 tw-text-black tw-border tw-rounded-3xl tw-w-[80%] tw-px-3 tw-py-2' value={search} />
+            <input type='submit' className='tw-bg-orange-600 tw-mx-2 tw-p-2 tw-cursor-pointer tw-rounded-3xl hover:tw-bg-orange-700' />
           </form>
           {clk ? (
-            <h1 className='text-center text-violet-500 text-4xl mt-4 font-bold font-serif'>Search Results: {blogs.length}</h1>
+            <h1 className='tw-text-center tw-text-violet-500 tw-text-4xl tw-mt-4 tw-font-bold tw-font-serif'>Search Results: {blogs.length}</h1>
           ) : (
-            <h1 className='text-center text-violet-500 text-4xl mt-4 font-bold font-serif'>Latest Blogs: {props.allBlogs.length}</h1>
+            <h1 className='tw-text-center tw-text-violet-500 tw-text-4xl tw-mt-4 tw-font-bold tw-font-serif'>Latest Blogs: {props.allBlogs.length}</h1>
           )}
-        <section className="text-gray-300 bg-black body-font">
-        <div className="container px-10 py-10 mx-auto">
-          <div className="flex flex-wrap -m-4">
-            {blogs.map((blog, index) => {
+        <div className="tw-container tw-px-10 tw-py-10 tw-mx-auto">
+          <div className="tw-flex tw-flex-wrap tw--m-4">
+            {/* {
+              spinner &&
+            blogs.map((blog, index) => {
+              return (
+                <div className="xl:tw-w-1/4 md:tw-w-1/2 tw-p-4" data-aos="zoom-in" data-aos-duration="1000" key={blog._id}>
+      <Card className="tw-bg-gray-700 tw-p-4 tw-rounded-lg">
+      <Card.Img variant="top" src="holder.js/100px180" width={800}
+        height={500} className='tw-h-3/6'/>
+        <Card.Body>
+          <Placeholder as={Card.h3} animation="glow">
+            <Placeholder xs={6} />
+          </Placeholder>
+          <Placeholder as={Card.h2} animation="glow">
+            <Placeholder xs={7} /> <Placeholder xs={4} /> <Placeholder xs={4} />{' '}
+            <Placeholder xs={6} /> <Placeholder xs={8} />
+          </Placeholder>
+        </Card.Body>
+      </Card>
+
+     
+      </div>
+      )
+            })
+          } */}
+
+{
+              spinner &&
+              blogs.map((blog, index) => {
+                return (
+                  <div className="xl:tw-w-1/4 md:tw-w-1/2 tw-p-4 tw-w-full" data-aos="zoom-in" data-aos-duration="1000" key={blog._id}>
+                    <CustomCard className="tw-p-4 tw-rounded-lg ">
+      <div className="tw-animate-pulse">
+                      
+                      {/* <Card.Img variant="top" className="tw-placeholder-glow"> */}
+                        <Placeholder as={Card.Img} className="tw-img-fluid tw-placeholder-glow" variant="top" width={800}
+        height={500}/>
+                      {/* </Card.Img> */}
+                      <CustomCard.Body>
+                        <h5 className="card-title tw-placeholder-glow">
+                          <Placeholder xs={6} />
+                        </h5>
+                        <p className="card-text tw-placeholder-glow">
+                          <Placeholder xs={7} /> <Placeholder xs={4} /> <Placeholder xs={4} />{' '}
+                          <Placeholder xs={6} /> <Placeholder xs={8} />
+                        </p>
+                      </CustomCard.Body>
+                      </div>
+                    </CustomCard>
+
+
+                     
+                  </div>
+                )
+              })
+            }
+
+          {
+      !spinner && 
+            blogs.map((blog, index) => {
               const dat = new Date(blog.date);
               const options = { year: 'numeric', month: 'long', day: 'numeric' };
               const formattedDate = dat.toLocaleDateString('en-US', options);
 
               return (
-                <div className="xl:w-1/4 md:w-1/2 p-4" data-aos="zoom-in" data-aos-duration="1000" key={blog._id}>
-                  <Link href={`/blogpost/${blog._id}`}>
-                    <div className="bg-gray-700 p-4 rounded-lg transition-all hover:scale-105 duration-200">
-                      <Image
-                      loader={customLoader}
-                        src={images[index]}
-                        onError={() => handleImageError(index)}
-                        width={800}
-                        height={500}
-                        alt="content"
-                      />
-                      <h3 className="tracking-widest text-indigo-500 text-xs font-medium title-font">Date: {formattedDate}</h3>
-                      <h2 className="text-lg text-gray-200 font-medium title-font mb-4">{blog.title}</h2>
-                    </div>
-                  </Link>
+                <div className="xl:tw-w-1/4 md:tw-w-1/2 tw-p-4" data-aos="zoom-in" data-aos-duration="1000" key={blog._id}>
+                  <Link href={`/blogpost/${blog._id}`} className='text-decoration-none'>
+                   
+      <CustomCard className="tw-p-4 tw-rounded-lg tw-transition-all hover:tw-scale-105 tw-duration-200 ">
+        <CustomCard.Img 
+        loader={customLoader}
+        src={images[index]}
+        onError={() => handleImageError(index)}
+        width={800}
+        height={500}
+        alt="content" />
+       <CustomCard.Body className='px-2 '>
+          <h3 className="tw-tracking-widest tw-p-0  tw-text-indigo-500 tw-text-xs tw-font-medium tw-title-font">Date: {formattedDate}</h3>
+                      <h2 className="tw-text-lg tw-text-gray-200 tw-font-medium tw-title-font">{blog.title}</h2>
+                   
+        </CustomCard.Body>
+      </CustomCard>
+        </Link>
                 </div>
               );
-            })}
+            })
+          }
           </div>
         </div>
-      </section>
+
 
           {loadingMore && <Spinner />} {/* Show spinner while loading more blogs */}
         </div>
-      )}
       {spinner && <Spinner />}
     </div>
   );
-};
+}
 
+  
 export async function getStaticProps(context) {
   try {
     const response = await fetch(`https://newwwbackkk.onrender.com/api/notes/fetchnotes`, {
