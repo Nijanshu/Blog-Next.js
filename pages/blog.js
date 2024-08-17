@@ -3,6 +3,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Head from 'next/head';
 import styled from 'styled-components';
+import axios from 'axios';
+
 
 import Spinner from './Spinner';
 
@@ -11,14 +13,54 @@ import Placeholder from 'react-bootstrap/Placeholder';
 
 const Blog = (props) => {
   const [blogs, setBlogs] = useState(props.allBlogs.slice(0, 8));
-  const [search, setSearch] = useState('');
   const [clk, setClk] = useState(false);
-  const [spinner, setSpinner] = useState(true);
-  const [loadingMore, setLoadingMore] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(8);
   const [images, setImages] = useState(
-    props.allBlogs.slice(0, 8).map(blog => blog.img)
+    props.allBlogs.map(blog => blog.img)
   );
+
+  const [spinn, setSpinn] = useState(true);
+
+
+  const [query, setQuery] = useState('');
+  const [searchParam] = useState(["title", "description"]);
+
+
+  useEffect(() => {
+
+      // e.preventDefault();
+    const filteredBlogs = props.allBlogs.filter(blog =>
+      blog.title.toLowerCase().includes(query.toLowerCase())||
+      blog.description.toLowerCase().includes(query.toLowerCase())
+
+    );
+    setBlogs(filteredBlogs);
+    setClk(true);
+    // setLoadingMore(false);
+    // setCurrentIndex(8);
+    setImages(filteredBlogs.map(blog => blog.img));
+  },[query]);
+
+  // useEffect(() => {
+   
+  //     setSpinn(true);
+  //     console.log(spinn)
+  // }, []);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await new Promise(resolve => setTimeout(resolve,2000));
+
+        setSpinn(false);
+      } catch (error) {
+        console.error('Error fetching blog data:', error.message);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const CustomCard = styled(Card)`
    background-color: #1a2023e0;
@@ -26,31 +68,7 @@ const Blog = (props) => {
    
 `;
 
-  const change = (e) => setSearch(e.target.value);
-
-  const submit = (e) => {
-    e.preventDefault();
-    const filteredBlogs = props.allBlogs.filter(blog =>
-      blog.description.toLowerCase().includes(search.toLowerCase())
-    );
-    setBlogs(filteredBlogs.slice(0, 8));
-    setClk(true);
-    setCurrentIndex(8);
-    setImages(filteredBlogs.slice(0, 8).map(blog => blog.img)); // Update images
-  };
-
-  const loadMoreBlogs = () => {
-    if (loadingMore || blogs.length >= props.allBlogs.length) return;
-    setLoadingMore(true);
-    const nextBlogs = props.allBlogs.slice(currentIndex, currentIndex + 8);
-    setBlogs(prevBlogs => [...prevBlogs, ...nextBlogs]);
-    setImages(prevImages => [
-      ...prevImages,
-      ...nextBlogs.map(blog => blog.img)
-    ]);
-    setCurrentIndex(currentIndex + 8);
-    setLoadingMore(false);
-  };
+  
 
   const handleImageError = (index) => {
     setImages(prevImages =>
@@ -60,34 +78,23 @@ const Blog = (props) => {
     );
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await new Promise(resolve => setTimeout(resolve,2000));
+   
 
-        setSpinner(false);
-      } catch (error) {
-        console.error('Error fetching blog data:', error.message);
-      }
-    };
 
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     if (
+  //       window.innerHeight + document.documentElement.scrollTop >=
+  //         document.documentElement.offsetHeight - 100 &&
+  //       !loadingMore
+  //     ) {
+  //       loadMoreBlogs();
+  //     }
+  //   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (
-        window.innerHeight + document.documentElement.scrollTop >=
-          document.documentElement.offsetHeight - 100 &&
-        !loadingMore
-      ) {
-        loadMoreBlogs();
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [loadingMore, blogs, currentIndex]);
+  //   window.addEventListener('scroll', handleScroll);
+  //   return () => window.removeEventListener('scroll', handleScroll);
+  // }, [loadingMore, currentIndex]);
 
  
   const customLoader = ({ src, width, quality }) => {
@@ -105,9 +112,8 @@ const Blog = (props) => {
       </Head>
       
         <div>
-          <form className='tw-mx-auto tw-mt-6 tw-mb-4 tw-flex md:tw-w-[50%]' onSubmit={submit}>
-            <input type="text" onChange={change} placeholder='search here' className='tw-bg-slate-50 tw-text-black tw-border tw-rounded-3xl tw-w-[80%] tw-px-3 tw-py-2' value={search} />
-            <input type='submit' className='tw-bg-orange-600 tw-mx-2 tw-p-2 tw-cursor-pointer tw-rounded-3xl hover:tw-bg-orange-700' />
+          <form className='tw-mx-auto tw-mt-6 tw-mb-4 tw-flex md:tw-w-[50%]'>
+            <input type="text" placeholder='search here' className='tw-bg-slate-50 tw-text-black tw-border tw-rounded-3xl tw-w-[80%] tw-px-3 tw-py-2' value={query} onChange={(e) => setQuery(e.target.value)}/>
           </form>
           {clk ? (
             <h1 className='tw-text-center tw-text-violet-500 tw-text-4xl tw-mt-4 tw-font-bold tw-font-serif'>Search Results: {blogs.length}</h1>
@@ -141,39 +147,39 @@ const Blog = (props) => {
             })
           } */}
 
-{
-              spinner &&
-              blogs.map((blog, index) => {
-                return (
-                  <div className="xl:tw-w-1/4 md:tw-w-1/2 tw-p-4 tw-w-full" data-aos="zoom-in" data-aos-duration="1000" key={blog._id}>
-                    <CustomCard className="tw-p-4 tw-rounded-lg ">
-      <div className="tw-animate-pulse">
-                      
-                      {/* <Card.Img variant="top"  className="tw-img-fluid tw-placeholder-glow" width={800}  height={500}/> */}
-                        <Placeholder as={Card.Img} className="tw-img-fluid tw-placeholder-glow" variant="top" width={800}
-        height={500}/>
-                      {/* </Card.Img> */}
-                      <CustomCard.Body>
-                        <h5 className="card-title tw-placeholder-glow">
-                          <Placeholder xs={6} />
-                        </h5>
-                        <p className="card-text tw-placeholder-glow">
-                          <Placeholder xs={7} /> <Placeholder xs={4} /> <Placeholder xs={4} />{' '}
-                          <Placeholder xs={6} /> <Placeholder xs={8} />
-                        </p>
-                      </CustomCard.Body>
-                      </div>
-                    </CustomCard>
-
-
-                     
-                  </div>
-                )
-              })
-            }
-
           {
-      !spinner && 
+            spinn &&
+            blogs.map((blog, index) => {
+              return (
+                <div className="xl:tw-w-1/4 md:tw-w-1/2 tw-p-4 tw-w-full" data-aos="zoom-in" data-aos-duration="1000" key={blog._id}>
+                  <CustomCard className="tw-p-4 tw-rounded-lg ">
+        <div className="tw-animate-pulse">
+                    
+                    {/* <Card.Img variant="top" className="tw-img-fluid tw-placeholder-glow" width={800}  height={500}/> */}
+                      <Placeholder as={Card.Img} className="tw-img-fluid tw-placeholder-glow" variant="top" width={800}
+        height={500}/>
+                    {/* </Card.Img> */}
+                    <CustomCard.Body>
+                      <h5 className="card-title tw-placeholder-glow">
+                        <Placeholder xs={6} />
+                      </h5>
+                      <p className="card-text tw-placeholder-glow">
+                        <Placeholder xs={7} /> <Placeholder xs={4} /> <Placeholder xs={4} />{' '}
+                        <Placeholder xs={6} /> <Placeholder xs={8} />
+                      </p>
+                    </CustomCard.Body>
+                    </div>
+                  </CustomCard>
+        
+        
+                   
+                </div>
+              )
+            })
+          
+          }
+          {
+      !spinn && 
             blogs.map((blog, index) => {
               const dat = new Date(blog.date);
               const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -206,9 +212,8 @@ const Blog = (props) => {
         </div>
 
 
-          {loadingMore && <Spinner />} {/* Show spinner while loading more blogs */}
         </div>
-      {spinner && <Spinner />}
+      {spinn && <Spinner />}
     </div>
   );
 }

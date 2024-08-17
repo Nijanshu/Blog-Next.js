@@ -2,17 +2,19 @@ import React, { useEffect, useState } from 'react'
 import styles from '@/styles/blog.module.css'
 import Head from 'next/head';
 import { LazyResult } from 'postcss';
+import Spinner from '../Spinner';
 
 
 const slug = (props) => {
   const [blog, setblog] = useState(props.myBlog)
+  const [spinner, setSpinner] = useState(true);
+
 
   const dat = new Date(blog.date);
   const options = {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-    
   };
   const formattedDate = dat.toLocaleDateString('en-US', options);
 
@@ -20,6 +22,7 @@ const slug = (props) => {
   if (!slug) {
     return <div>No slug provided.</div>;
   }
+
 
   return <div className={styles.blog}>
     <Head>

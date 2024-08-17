@@ -16,13 +16,15 @@ export default function App({ Component, pageProps }) {
   const [spinner, setspinner] = useState(false)
 
   const load = () => {
-    if (setspinner) { // if the setspinner function exists. 
-      setspinner(true);
-      // Assuming you want to keep the spinner for 2 seconds as in your original code
+    // if (setspinner) { // if the setspinner function exists. 
+       setspinner(true);
+
+      console.log(spinner)
+      // // Assuming you want to keep the spinner for 2 seconds as in your original code
       setTimeout(() => {
         setspinner(false);
       },3000);
-    }
+    // }
   };
   
   useEffect(() => {

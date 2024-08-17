@@ -49,8 +49,6 @@ export default function Home(props) {
             onClick={props.load}
           >
 
-
-
             <h3>
               Blogs <span>&gt;</span>
             </h3>
