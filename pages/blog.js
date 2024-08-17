@@ -112,7 +112,7 @@ const Blog = (props) => {
       </Head>
       
         <div>
-          <form className='tw-mx-auto tw-mt-6 tw-mb-4 tw-flex md:tw-w-[50%]'>
+          <form className='tw-mx-auto tw-mt-6 tw-mb-4 tw-flex tw-justify-center md:tw-w-[50%]'>
             <input type="text" placeholder='search here' className='tw-bg-slate-50 tw-text-black tw-border tw-rounded-3xl tw-w-[80%] tw-px-3 tw-py-2' value={query} onChange={(e) => setQuery(e.target.value)}/>
           </form>
           {clk ? (
