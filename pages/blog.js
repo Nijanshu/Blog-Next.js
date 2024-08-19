@@ -29,13 +29,25 @@ const Blog = (props) => {
   useEffect(() => {
 
       // e.preventDefault();
-    const filteredBlogs = props.allBlogs.filter(blog =>
-      blog.title.toLowerCase().includes(query.toLowerCase())||
-      blog.description.toLowerCase().includes(query.toLowerCase())
-
-    );
+      const titleMatches = props.allBlogs.filter(blog =>
+        blog.title.toLowerCase().includes(query.toLowerCase())
+      );
+      const tagMatches = props.allBlogs.filter(blog =>
+        blog.tag.toLowerCase().includes(query.toLowerCase()) &&
+        !blog.title.toLowerCase().includes(query.toLowerCase())
+      );
+      
+      
+      
+      const filteredBlogs = [...titleMatches, ...tagMatches];
     setBlogs(filteredBlogs);
     setClk(true);
+
+   
+
+    if(query==''){
+      setClk(false);
+    }
     // setLoadingMore(false);
     // setCurrentIndex(8);
     setImages(filteredBlogs.map(blog => blog.img));
@@ -199,6 +211,7 @@ const Blog = (props) => {
         alt="content" />
        <CustomCard.Body className='px-2 '>
           <h3 className="tw-tracking-widest tw-p-0  tw-text-indigo-500 tw-text-xs tw-font-medium tw-title-font">Date: {formattedDate}</h3>
+                      <h2 className="tw-text-lg tw-text-gray-200 tw-font-medium tw-title-font">{blog.tag}</h2>
                       <h2 className="tw-text-lg tw-text-gray-200 tw-font-medium tw-title-font">{blog.title}</h2>
                    
         </CustomCard.Body>
@@ -221,7 +234,7 @@ const Blog = (props) => {
   
 export async function getStaticProps(context) {
   try {
-    const response = await fetch(`https://newwwbackkk.onrender.com/api/notes/fetchnotes`, {
+    const response = await fetch(`http://localhost:5000/api/notes/fetchnotes`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
