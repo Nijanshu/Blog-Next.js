@@ -43,8 +43,6 @@ const Blog = (props) => {
     setBlogs(filteredBlogs);
     setClk(true);
 
-   
-
     if(query==''){
       setClk(false);
     }
@@ -211,7 +209,6 @@ const Blog = (props) => {
         alt="content" />
        <CustomCard.Body className='px-2 '>
           <h3 className="tw-tracking-widest tw-p-0  tw-text-indigo-500 tw-text-xs tw-font-medium tw-title-font">Date: {formattedDate}</h3>
-                      <h2 className="tw-text-lg tw-text-gray-200 tw-font-medium tw-title-font">{blog.tag}</h2>
                       <h2 className="tw-text-lg tw-text-gray-200 tw-font-medium tw-title-font">{blog.title}</h2>
                    
         </CustomCard.Body>
@@ -234,7 +231,7 @@ const Blog = (props) => {
   
 export async function getStaticProps(context) {
   try {
-    const response = await fetch(`http://localhost:5000/api/notes/fetchnotes`, {
+    const response = await fetch(`https://newwwbackkk.onrender.com/api/notes/fetchnotes`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

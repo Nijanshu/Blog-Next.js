@@ -10,6 +10,15 @@ const slug = (props) => {
   const [spinner, setSpinner] = useState(true);
 
 
+  useEffect(() => {
+    // Set the blog data and loading state when the component mounts
+    if (props.myBlog) {
+      setblog(props.myBlog);
+      setSpinner(false); // Set loading to false when data is available
+    }
+  }, [props.myBlog]);
+
+
   const dat = new Date(blog.date);
   const options = {
     year: 'numeric',
@@ -31,6 +40,7 @@ const slug = (props) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/inBlog.png" />
       </Head>
+      {spinner && <Spinner />}
    
     {blog && < div dangerouslySetInnerHTML={createMarkup(blog.description)} ></div>}
       </div>
