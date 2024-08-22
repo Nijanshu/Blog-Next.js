@@ -11,12 +11,22 @@ const slug = (props) => {
 
 
   useEffect(() => {
-    // Set the blog data and loading state when the component mounts
-    if (props.myBlog) {
-      setblog(props.myBlog);
-      setSpinner(false); // Set loading to false when data is available
-    }
+    const fetchData = async () => {
+      try {
+        await new Promise(resolve => setTimeout(resolve,2000));
+
+        if (props.myBlog) {
+          setblog(props.myBlog);
+          setSpinner(false); // Set loading to false when data is available
+        }
+            } catch (error) {
+        console.error('Error fetching blog data:', error.message);
+      }
+    };
+
+    fetchData();
   }, [props.myBlog]);
+
 
 
   const dat = new Date(blog.date);
