@@ -12,7 +12,7 @@ const Contact = () => {
         e.preventDefault()
         const data = { phone, name, email, desc };
         console.log(data)
-        fetch('https://newwwbackkk.onrender.com/api/notes/addnote', {
+        fetch('https://contactus-page.onrender.com/api/notes/addnote', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',
@@ -27,6 +27,7 @@ const Contact = () => {
                 setname('')
                 setdesc('')
                 setemail('')
+                alert("Thanks for contacting us");
             })
             .catch((error) => {
                 console.error('Error:', error);
