@@ -71,7 +71,6 @@ const Blog = (props) => {
       //   !blog.title.toLowerCase().includes(query.toLowerCase()) &&
       //   !blog.tag.toLowerCase().includes(query.toLowerCase())
       // );
-      console.log(titleMatches)
       
       
       const filteredBlogs = [...titleMatches,...tagMatches,...descMatches];
