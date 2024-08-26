@@ -29,22 +29,52 @@ const Blog = (props) => {
   useEffect(() => {
 
       // e.preventDefault();
-      const titleMatches = props.allBlogs.filter(blog =>
-        blog.title.toLowerCase().includes(query.toLowerCase())
-      );
-      const tagMatches = props.allBlogs.filter(blog =>
-        blog.tag.toLowerCase().includes(query.toLowerCase()) &&
-        !blog.title.toLowerCase().includes(query.toLowerCase())
-      );
-      const descMatches = props.allBlogs.filter(blog =>
-        blog.description.toLowerCase().includes(query.toLowerCase()) &&
-        !blog.title.toLowerCase().includes(query.toLowerCase()) &&
-        !blog.tag.toLowerCase().includes(query.toLowerCase())
-      );
+      const titleMatches = props.allBlogs.filter(blog => {
+        const titleWords = blog.title.toLowerCase().split(' ');
+        const queryLower = query.toLowerCase();
+
+      
+        for (let word of titleWords) {
+          if (word.startsWith(queryLower)) {
+            return true;
+          }
+        }
+        return false;
+      });
+      
+      const tagMatches =  props.allBlogs.filter(blog => {
+        const tagWords = blog.tag.toLowerCase().split(' ');
+        const queryLower = query.toLowerCase();
+
+      
+        for (let word of tagWords) {
+          if (word.startsWith(queryLower) && !titleMatches.includes(blog) ) {
+            return true;
+          }
+        }
+        return false;
+      });
+      const descMatches =  props.allBlogs.filter(blog => {
+        const descWords = blog.description.toLowerCase().split(' ');
+        const queryLower = query.toLowerCase();
+
+        
+        for (let word of descWords) {
+          if (word.startsWith(queryLower)  && !titleMatches.includes(blog) && !tagMatches.includes(blog)) {
+            return true;
+          }
+        }
+        return false;
+      });
+      // const descMatches = props.allBlogs.filter(blog =>
+      //   blog.description.toLowerCase().includes(query.toLowerCase()) &&
+      //   !blog.title.toLowerCase().includes(query.toLowerCase()) &&
+      //   !blog.tag.toLowerCase().includes(query.toLowerCase())
+      // );
+      console.log(titleMatches)
       
       
-      
-      const filteredBlogs = [...titleMatches, ...tagMatches];
+      const filteredBlogs = [...titleMatches,...tagMatches,...descMatches];
     setBlogs(filteredBlogs);
     setClk(true);
 
@@ -127,7 +157,7 @@ const Blog = (props) => {
       </Head>
       
         <div>
-          <form className='tw-mx-auto tw-mt-6 tw-mb-4 tw-flex tw-justify-center md:tw-w-[50%]'>
+          <form className='tw-mx-auto tw-mt-6 tw-mb-4 tw-flex tw-justify-center md:tw-w-[50%]' onSubmit={(e)=>e.preventDefault()}>
             <input type="text" placeholder='search here' className='tw-bg-slate-50 tw-text-black tw-border tw-rounded-3xl tw-w-[80%] tw-px-3 tw-py-2' value={query} onChange={(e) => setQuery(e.target.value)}/>
           </form>
           {clk ? (
