@@ -36,6 +36,11 @@ const Blog = (props) => {
         blog.tag.toLowerCase().includes(query.toLowerCase()) &&
         !blog.title.toLowerCase().includes(query.toLowerCase())
       );
+      const descMatches = props.allBlogs.filter(blog =>
+        blog.description.toLowerCase().includes(query.toLowerCase()) &&
+        !blog.title.toLowerCase().includes(query.toLowerCase()) &&
+        !blog.tag.toLowerCase().includes(query.toLowerCase())
+      );
       
       
       
