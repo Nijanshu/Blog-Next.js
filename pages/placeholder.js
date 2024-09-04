@@ -31,11 +31,17 @@ function Place(props) {
         <Placeholder xs={12} style={{width:'97%'}}/>
         <Placeholder xs={12} style={{width:'98%'}}/>
         <Placeholder xs={12} style={{width:'97%'}}/>
+        <Placeholder xs={12} style={{width:'97%'}}/>
         <Placeholder xs={12} style={{width:'96%'}}/>
         <Placeholder xs={12} style={{width:'97%'}}/>
         <Placeholder xs={12} style={{width:'98%'}}/>
+        <br />
+        <br />
         <Placeholder xs={12} style={{width:'99%'}}/>
-        <Placeholder xs={12} style={{width:'95%'}}/>
+        <Placeholder xs={12} style={{width:'98%'}}/>
+        <Placeholder xs={12} style={{width:'99%'}}/>
+        <Placeholder xs={12} style={{width:'97%'}}/>
+        <Placeholder xs={12} style={{width:'96%'}}/>
       </Placeholder>
 
     </div>
