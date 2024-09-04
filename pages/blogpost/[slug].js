@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import styles from '@/styles/blog.module.css'
 import Head from 'next/head';
-import { LazyResult } from 'postcss';
-import Spinner from '../Spinner';
+import Place from '../placeholder';
+
 
 
 const slug = (props) => {
@@ -14,11 +14,13 @@ const slug = (props) => {
     const fetchData = async () => {
       try {
         await new Promise(resolve => setTimeout(resolve,2000));
+       
 
         if (props.myBlog) {
           setblog(props.myBlog);
           setSpinner(false); // Set loading to false when data is available
         }
+       
             } catch (error) {
         console.error('Error fetching blog data:', error.message);
       }
@@ -26,7 +28,6 @@ const slug = (props) => {
 
     fetchData();
   }, [props.myBlog]);
-
 
 
   const dat = new Date(blog.date);
@@ -50,8 +51,11 @@ const slug = (props) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/inBlog.png" />
       </Head>
-      {spinner && <Spinner />}
-   
+      {/* {spinner && <Spinner />} */}
+   {spinner && 
+   <Place/>
+    
+    }
     {blog && < div dangerouslySetInnerHTML={createMarkup(blog.description)} ></div>}
       </div>
 };

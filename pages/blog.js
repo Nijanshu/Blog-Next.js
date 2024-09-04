@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import Head from 'next/head';
 import styled from 'styled-components';
-import axios from 'axios';
 
 
 import Spinner from './Spinner';
@@ -96,7 +94,7 @@ const Blog = (props) => {
     const fetchData = async () => {
       try {
         await new Promise(resolve => setTimeout(resolve,2000));
-
+        
         setSpinn(false);
       } catch (error) {
         console.error('Error fetching blog data:', error.message);
@@ -144,7 +142,6 @@ const Blog = (props) => {
   const customLoader = ({ src, width, quality }) => {
     return `${src}`;
   };
-
 
   return (
     <div>
@@ -248,7 +245,7 @@ const Blog = (props) => {
         </CustomCard.Body>
       </CustomCard>
         </Link>
-                </div>
+        </div>
               );
             })
           }
@@ -258,6 +255,7 @@ const Blog = (props) => {
 
         </div>
       {spinn && <Spinner />}
+      
     </div>
   );
 }
