@@ -11,11 +11,23 @@ const Navbar = (props) => {
     <div>
       <nav className={styles.nav1}>
         <ul>
-          <Link href='/' className='hover:tw-translate-y-0.5 hover:tw-underline tw-no-underline tw-text-white tw-transition-all'><li>Home</li></Link>
-          <Link href='/about' className='hover:tw-translate-y-0.5 hover:tw-underline tw-no-underline tw-text-white tw-transition-all'><li>About</li></Link>
+          <li className='hover:tw-translate-y-0.5   tw-transition-all'>
+            
+          <Link href='/' className='tw-text-white hover:tw-underline tw-no-underline'>Home</Link>
+          </li>
+          <li className='hover:tw-translate-y-0.5   tw-transition-all'>
+
+          <Link href='/about' className='tw-text-white hover:tw-underline tw-no-underline'>About</Link>
+          </li>
+          <li className='hover:tw-translate-y-0.5   tw-transition-all'>
+
           {/* Call the load function when the "Blogs" link is clicked */}
-          <Link href='/blog' className='hover:tw-translate-y-0.5 hover:tw-underline tw-no-underline tw-text-white tw-transition-all' onClick={props.load}><li>Blogs</li></Link>
-          <Link href='/contact' className='hover:tw-translate-y-0.5 hover:tw-underline tw-no-underline tw-text-white tw-transition-all'><li>Contact Us</li></Link>
+          <Link href='/blog' className='tw-text-white hover:tw-underline tw-no-underline' onClick={props.load}>Blogs</Link>
+          </li>
+          <li className='hover:tw-translate-y-0.5   tw-transition-all'>
+
+          <Link href='/contact' className='tw-text-white hover:tw-underline tw-no-underline'>Contact Us</Link>
+          </li>
         </ul>
       </nav>
       <div className='flex'>
