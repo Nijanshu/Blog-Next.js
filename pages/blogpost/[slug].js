@@ -1,32 +1,30 @@
-import React, { useEffect, useState } from 'react'
-import styles from '@/styles/blog.module.css'
+import React, { useEffect, useState } from 'react';
+import styles from '@/styles/blog.module.css';
 import Head from 'next/head';
 import Place from '../placeholder';
 
-
-
-const slug = (props) => {
-  const [blog, setblog] = useState(props.myBlog)
+const Slug = ({ myBlog }) => {
   const [spinner, setSpinner] = useState(true);
-
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await new Promise(resolve => setTimeout(resolve,2000));
-        setblog(props.myBlog);
+        await new Promise((resolve) => setTimeout(resolve, 2000));
       } catch (error) {
         console.error('Error fetching blog data:', error.message);
       } finally {
         setSpinner(false); // Set loading to false regardless of the outcome
       }
     };
-  
+
     fetchData();
-  }, [props.myBlog]);
+  }, [myBlog]);
 
+  if (!myBlog) {
+    return <div>No blog found.</div>;
+  }
 
-  const dat = new Date(blog.date);
+  const dat = new Date(myBlog.date);
   const options = {
     year: 'numeric',
     month: 'long',
@@ -34,73 +32,72 @@ const slug = (props) => {
   };
   const formattedDate = dat.toLocaleDateString('en-US', options);
 
- 
-  if (!slug) {
-    return <div>No slug provided.</div>;
-  }
-
-
-  return <div className={styles.blog}>
-    <Head>
-        <title>{blog.title}</title>
+  return (
+    <div className={styles.blog}>
+      <Head>
+        <title>{myBlog.title}</title>
         <meta name="description" content="inBlog Blogs" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/inBlog.png" />
       </Head>
-      {/* {spinner && <Spinner />} */}
-   {spinner && 
-   <Place/>
-    
-    }
-    {blog && < div dangerouslySetInnerHTML={createMarkup(blog.description)} ></div>}
-      </div>
+
+      {spinner && <Place />}
+
+      {!spinner && myBlog && (
+  
+          <div dangerouslySetInnerHTML={createMarkup(myBlog.description)}></div>
+      )}
+    </div>
+  );
 };
-
-// export async function getStaticPaths() {
-//   return {
-//       paths: [
-//           { params: { slug: 'blog1' } },
-//           { params: { slug: 'blog2' } },
-//           { params: { slug: 'blog3' } },
-//           { params: { slug: 'blog4' } },
-//       ],
-//       fallback: true // false or 'blocking'
-//   };
-// }
-
-// export async function getStaticProps(context) {
-//   const { slug } = context.params;
-//   let myBlog = await fs.promises.readFile(`blogdata/${slug}.json`, 'utf-8')
-//   return {
-//       props: { myBlog: JSON.parse(myBlog) }, // will be passed to the page component as props
-//   }
-// }
-
 
 function createMarkup(c) {
   return { __html: c };
 }
 
-
-export async function getServerSideProps(context) {        //Server will fetch data from api not browser
-  // console.log(context.query)
-  // const router = useRouter();
-  const { slug } = context.query;
-  console.log(slug)
-  let data = await fetch(`https://newwwbackkk.onrender.com/api/notes/getnote/${slug}`, {
-    method: 'GET', 
+// Add getStaticPaths to provide dynamic paths to be pre-rendered
+export async function getStaticPaths() {
+  // Fetch slugs or list of blogs from your backend or file system
+  let data = await fetch('https://newwwbackkk.onrender.com/api/notes/fetchnotes', {
+    method: 'GET',
     headers: {
-      "Content-Type": "application/json",
-      "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwYjYwZjA1NzBmMjliNjYxZDRjNWI2In0sImlhdCI6MTY5NzAyOTMxN30.TR-s19HixAFqeaJFYYnCM3zyAiXtshcneHNqpyVRTb0"
-  
-      // 'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Type': 'application/json',
+      'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwYjYwZjA1NzBmMjliNjYxZDRjNWI2In0sImlhdCI6MTY5NzAyOTMxN30.TR-s19HixAFqeaJFYYnCM3zyAiXtshcneHNqpyVRTb0',
     },
   });
-  let myBlog = await data.json()
+  let slugs = await data.json();
+console.log(slugs)
+// Map the slugs to the required paths format (ensure slug is a string)
+const paths = slugs.map((slugObj) => ({
+  params: { slug: slugObj.description },  // Ensure slug is a string
+}));
+
+
   return {
-      props: { myBlog }, // will be passed to the page component as props
-  }
+    paths, // Pre-render these paths at build time
+    fallback: true, // fallback: true means other routes will be generated on demand
+  };
 }
 
+// getStaticProps fetches the content for each dynamic path
+export async function getStaticProps(context) {
+  const { slug } = context.params;
 
-export default slug;
+  let data = await fetch(
+    `https://newwwbackkk.onrender.com/api/notes/getnote/${slug}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwYjYwZjA1NzBmMjliNjYxZDRjNWI2In0sImlhdCI6MTY5NzAyOTMxN30.TR-s19HixAFqeaJFYYnCM3zyAiXtshcneHNqpyVRTb0',
+      },
+    }
+  );
+  let myBlog = await data.json();
+
+  return {
+    props: { myBlog }, // Pass data to the page component as props
+  };
+}
+
+export default Slug;
