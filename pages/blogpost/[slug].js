@@ -14,18 +14,14 @@ const slug = (props) => {
     const fetchData = async () => {
       try {
         await new Promise(resolve => setTimeout(resolve,2000));
-       
-
-        if (props.myBlog) {
-          setblog(props.myBlog);
-          setSpinner(false); // Set loading to false when data is available
-        }
-       
-            } catch (error) {
+        setblog(props.myBlog);
+      } catch (error) {
         console.error('Error fetching blog data:', error.message);
+      } finally {
+        setSpinner(false); // Set loading to false regardless of the outcome
       }
     };
-
+  
     fetchData();
   }, [props.myBlog]);
 
