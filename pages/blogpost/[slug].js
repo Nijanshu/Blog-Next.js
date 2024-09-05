@@ -75,7 +75,7 @@ export async function getStaticPaths() {
 
     // Assuming the API returns a list of notes with a `slug` field or similar identifier
     const paths = notes.map((note) => ({
-      params: { slug: note.description.toString() },  // Ensure `slug` is a string
+      params: { slug: note._id.toString() },  // Ensure `slug` is a string
     }));
 
     return {
