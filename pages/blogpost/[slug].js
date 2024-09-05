@@ -55,27 +55,42 @@ function createMarkup(c) {
   return { __html: c };
 }
 
-// Add getStaticPaths to provide dynamic paths to be pre-rendered
 export async function getStaticPaths() {
-  // Fetch slugs or list of blogs from your backend or file system
-  let data = await fetch('https://newwwbackkk.onrender.com/api/notes/fetchnotes', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwYjYwZjA1NzBmMjliNjYxZDRjNWI2In0sImlhdCI6MTY5NzAyOTMxN30.TR-s19HixAFqeaJFYYnCM3zyAiXtshcneHNqpyVRTb0',
-    },
-  });
-  let slugs = await data.json();
-// Map the slugs to the required paths format (ensure slug is a string)
-const paths = slugs.map((slugObj) => ({
-  params: { slug: slugObj.description.toString() },  // Ensure slug is a string
-}));
+  try {
+    // Fetch slugs or list of blogs from your backend or file system
+    let response = await fetch('https://newwwbackkk.onrender.com/api/notes/fetchnotes', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwYjYwZjA1NzBmMjliNjYxZDRjNWI2In0sImlhdCI6MTY5NzAyOTMxN30.TR-s19HixAFqeaJFYYnCM3zyAiXtshcneHNqpyVRTb0',
+      },
+    });
 
+    // Check if the response is valid
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data, received status ${response.status}`);
+    }
 
-  return {
-    paths, // Pre-render these paths at build time
-    fallback: true, // fallback: true means other routes will be generated on demand
-  };
+    let notes = await response.json();
+
+    // Assuming the API returns a list of notes with a `slug` field or similar identifier
+    const paths = notes.map((note) => ({
+      params: { slug: note.description.toString() },  // Ensure `slug` is a string
+    }));
+
+    return {
+      paths, // Pre-render these paths at build time
+      fallback: true, // Fallback to dynamically generate pages if the path is not generated at build time
+    };
+
+  } catch (error) {
+    console.error('Error in getStaticPaths:', error.message);
+
+    return {
+      paths: [],
+      fallback: true, // Handle dynamically generating pages even if no paths are pre-rendered
+    };
+  }
 }
 
 // getStaticProps fetches the content for each dynamic path
