@@ -68,7 +68,7 @@ export async function getStaticPaths() {
   let slugs = await data.json();
 // Map the slugs to the required paths format (ensure slug is a string)
 const paths = slugs.map((slugObj) => ({
-  params: { slug: slugObj.description },  // Ensure slug is a string
+  params: { slug: slugObj.description.toString() },  // Ensure slug is a string
 }));
 
 
